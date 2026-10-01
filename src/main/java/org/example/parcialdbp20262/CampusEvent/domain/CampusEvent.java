@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.parcialdbp20262.TicketType.domain.Status;
 import org.example.parcialdbp20262.User.domain.Role;
 import org.example.parcialdbp20262.User.domain.User;
 import org.springframework.security.core.GrantedAuthority;
@@ -29,12 +30,18 @@ public class CampusEvent {
     private Long id;
 
     private Long organizerId;
-    private String title, description, category, location, status;
-    // description: max 500 chars, cat, status
+    private String title, description, location;
+    // description: max 500 chars
     private Date eventDate;
 
-    public CampusEvent(Long organizerId, String title, String description, String category,
-                       Date eventDate, String location, String status) {
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    @Enumerated(EnumType.STRING)
+    private Category category;
+
+    public CampusEvent(Long organizerId, String title, String description, Category category,
+                       Date eventDate, String location, Status status) {
         this.organizerId = organizerId;
         this.title = title;
         this.description = description;
@@ -42,6 +49,11 @@ public class CampusEvent {
         this.eventDate = eventDate;
         this.location = location;
         this.status = status;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(status.name()));
     }
 
 }

@@ -9,7 +9,6 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.parcialdbp20262.User.domain.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,30 +20,29 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class User implements UserDetails {
+public class TicketType implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Long eventId;
 
-    private String email, password, firstName, lastName;
+    private String name;
+    private Integer capacity, registeredCount;
 
     @Enumerated(EnumType.STRING)
-    private org.example.parcialdbp20262.User.domain.Role role;
+    private Status status;
 
-    public User(String email, String password, String firstName, String lastName, Role role) {
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.role = role;
+    public TicketType(Long eventId, String name, Integer capacity, Integer registeredCount, Status status) {
+        this.eventId = eventId;
+        this.name = name;
+        this.capacity = capacity;
+        this.registeredCount = registeredCount;
+        this.status = status;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return List.of(new SimpleGrantedAuthority(status.name()));
     }
-
-    @Override
-    public String getUsername() { return this.email; }
 }
