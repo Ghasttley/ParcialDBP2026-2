@@ -10,11 +10,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.parcialdbp20262.TicketType.domain.Status;
-import org.example.parcialdbp20262.User.domain.Role;
-import org.example.parcialdbp20262.User.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Date;
@@ -51,7 +48,6 @@ public class CampusEvent {
         this.status = status;
     }
 
-    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(status.name()));
     }

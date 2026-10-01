@@ -15,36 +15,36 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class User implements UserDetails {
+public class EventRegistration {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String email, password, firstName, lastName;
+    private Long eventId;
+    private Long ticketTypeId;
+    private Long atendeeId;
+    private Date registeredAt;
 
     @Enumerated(EnumType.STRING)
-    private org.example.parcialdbp20262.User.domain.Role role;
+    private Status status;
 
-    public User(String email, String password, String firstName, String lastName, Role role) {
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.role = role;
+    public EventRegistration(Long eventId, Long ticketTypeId, Long atendeeId, Date registeredAt, Status status) {
+        this.eventId = eventId;
+        this.ticketTypeId = ticketTypeId;
+        this.atendeeId = atendeeId;
+        this.registeredAt = registeredAt;
+        this.status = status;
     }
 
-    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return List.of(new SimpleGrantedAuthority(status.name()));
     }
-
-    @Override
-    public String getUsername() { return this.email; }
 }

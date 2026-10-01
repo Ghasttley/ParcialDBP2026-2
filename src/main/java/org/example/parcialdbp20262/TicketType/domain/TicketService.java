@@ -1,5 +1,6 @@
 package org.example.parcialdbp20262.TicketType.domain;
 
+import org.example.parcialdbp20262.TicketType.infrastructure.TicketTypeRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -7,16 +8,15 @@ import org.springframework.stereotype.Service;
 import org.example.parcialdbp20262.User.infrastructure.UserRepository;
 
 @Service
-public class UserService implements UserDetailsService {
-    private final UserRepository userRepository;
+public class TicketService {
+    private final TicketTypeRepository ticketTypeRepository;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public TicketService(TicketTypeRepository ticketTypeRepository) {
+        this.ticketTypeRepository = ticketTypeRepository;
     }
 
-    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("No account found for email: " + username));
+        return ticketTypeRepository.findByEventId(eventId)
+                .orElseThrow(() -> new TicketTypeNotFoundException("No ticket type for event: " + eventId));
     }
 }
