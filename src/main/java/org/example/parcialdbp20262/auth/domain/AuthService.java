@@ -1,4 +1,4 @@
-package org.example.parcialdbp20262.Auth.domain;
+package org.example.parcialdbp20262.auth.domain;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -6,9 +6,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.example.parcialdbp20262.User.domain.User;
 import org.example.parcialdbp20262.User.infrastructure.UserRepository;
-import org.example.parcialdbp20262.Auth.components.JwtService;
-import org.example.parcialdbp20262.Auth.dto.SignUpRequest;
-import org.example.parcialdbp20262.Auth.dto.TokenResponse;
+import org.example.parcialdbp20262.auth.components.JwtService;
+import org.example.parcialdbp20262.auth.dto.SignUpRequest;
+import org.example.parcialdbp20262.auth.dto.TokenResponse;
 
 @Service
 public class AuthService {
@@ -26,7 +26,7 @@ public class AuthService {
         this.authenticationManager = authenticationManager;
     }
 
-    public TokenResponse signUp(SignUpRequest request) {
+    public TokenResponse register(SignUpRequest request) {
         User user = userRepository.save(
                 new User(
                         request.getEmail(),
@@ -40,7 +40,7 @@ public class AuthService {
         return new TokenResponse(token);
     }
 
-    public TokenResponse signIn(String username, String password) {
+    public TokenResponse login(String username, String password) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(username, password)
         );

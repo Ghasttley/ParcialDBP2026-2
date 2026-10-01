@@ -10,41 +10,38 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.parcialdbp20262.User.domain.Role;
+import org.example.parcialdbp20262.User.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor
-public class User implements UserDetails {
+public class CampusEvent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String email, password, firstName, lastName;
+    private Long organizerId;
+    private String title, description, category, location, status;
+    // description: max 500 chars, cat, status
+    private Date eventDate;
 
-    @Enumerated(EnumType.STRING)
-    private org.example.parcialdbp20262.User.domain.Role role;
-
-    public User(String email, String password, String firstName, String lastName, Role role) {
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.role = role;
+    public CampusEvent(Long organizerId, String title, String description, String category,
+                       Date eventDate, String location, String status) {
+        this.organizerId = organizerId;
+        this.title = title;
+        this.description = description;
+        this.category = category;
+        this.eventDate = eventDate;
+        this.location = location;
+        this.status = status;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
-    }
-
-    @Override
-    public String getUsername() { return this.email; }
 }

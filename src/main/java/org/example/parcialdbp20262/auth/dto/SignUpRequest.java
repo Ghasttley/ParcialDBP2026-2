@@ -1,4 +1,4 @@
-package org.example.parcialdbp20262.Auth.dto;
+package org.example.parcialdbp20262.auth.dto;
 
 import lombok.Getter;
 import lombok.Setter;

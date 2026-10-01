@@ -1,4 +1,4 @@
-package org.example.parcialdbp20262.Auth.components;
+package org.example.parcialdbp20262.auth.components;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

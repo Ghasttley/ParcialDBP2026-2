@@ -1,4 +1,4 @@
-package org.example.parcialdbp20262.Auth.components;
+package org.example.parcialdbp20262.auth.components;
 
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
