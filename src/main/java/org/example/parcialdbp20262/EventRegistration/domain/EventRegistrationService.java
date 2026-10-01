@@ -1,20 +1,20 @@
 package org.example.parcialdbp20262.EventRegistration.domain;
 
+import org.example.parcialdbp20262.EventRegistration.infrastructure.EventRegistrationRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.example.parcialdbp20262.User.infrastructure.UserRepository;
 
 @Service
 public class EventRegistrationService {
-    private final UserRepository userRepository;
+    private final EventRegistrationRepository eventRegistrationRepository;
 
-    public EventRegistrationService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public EventRegistrationService(EventRegistrationRepository eventRegistrationRepository) {
+        this.eventRegistrationRepository = eventRegistrationRepository;
     }
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("No account found for email: " + username));
+        return eventRegistrationRepository.EventId(eventId)
+                .orElseThrow(() -> new RepetitionFoundException("Event: " + eventId + "already created."));
     }
 }
